@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engineering Hub - Learn Faster, Aim Higher</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #923FFF, #583FFF, #7DBFFF);
+            --primary-purple: #923FFF;
+            --primary-blue: #583FFF;
+            --primary-light-blue: #7DBFFF;
+            --bg-black: #000000;
+            --bg-dark: #0a0a0a;
+            --text-white: #ffffff;
+            --text-gray: #b3b3b3;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-black);
+            color: var(--text-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Spotlight Effects */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(146, 63, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(88, 63, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(125, 191, 255, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-icons i {
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-icons i:hover {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-white);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(146, 63, 255, 0.5)); }
+            to { filter: drop-shadow(0 0 30px rgba(88, 63, 255, 0.8)); }
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary-gradient);
+            color: var(--text-white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(146, 63, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(146, 63, 255, 0.5);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            margin-bottom: 3rem;
+        }
+
+        /* Glassmorphic Box */
+        .glass-box {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .glass-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(146, 63, 255, 0.2);
+        }
+
+        .glass-box img {
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 0 auto 2rem;
+            display: block;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Course Cards */
+        .course-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-purple);
+            box-shadow: 0 10px 30px rgba(146, 63, 255, 0.2);
+        }
+
+        .course-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-light-blue);
+        }
+
+        .course-card p {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-light-blue);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-white);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 10px rgba(146, 63, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-dark);
+            padding: 3rem 2rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 49%, rgba(146, 63, 255, 0.1) 50%, transparent 51%),
+                linear-gradient(-45deg, transparent 49%, rgba(88, 63, 255, 0.1) 50%, transparent 51%);
+            background-size: 60px 60px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-light-blue);
+        }
+
+        .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-purple);
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(146, 63, 255, 0.4);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-gray);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 3rem 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Dark/Light Mode Toggle */
+        .theme-toggle {
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        body.light-mode {
+            --bg-black: #ffffff;
+            --bg-dark: #f5f5f5;
+            --text-white: #000000;
+            --text-gray: #666666;
+            --glass-bg: rgba(0, 0, 0, 0.05);
+            --glass-border: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Quiz Styles */
+        .quiz-container {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .quiz-question {
+            margin-bottom: 2rem;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary-purple);
+            background: rgba(146, 63, 255, 0.1);
+        }
+
+        .quiz-option.selected {
+            background: var(--primary-gradient);
+            border-color: var(--primary-purple);
+        }
+
+        /* Leaderboard */
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .leaderboard-table th,
+        .leaderboard-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .leaderboard-table th {
+            background: var(--primary-gradient);
+            color: var(--text-white);
+        }
+
+        .leaderboard-table tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Admin Panel Styles */
+        .admin-login {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 400px;
+            margin: 5rem auto;
+        }
+
+        .admin-dashboard {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            background: var(--bg-dark);
+            padding: 2rem;
+            border-right: 1px solid var(--glass-border);
+        }
+
+        .admin-content {
+            padding: 2rem;
+        }
+
+        .admin-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Engineering Hub</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#ctevt">CTEVT Section</a></li>
+                <li><a href="#loksewa">Loksewa Section</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="nav-icons">
+                <i class="fas fa-search"></i>
+                <i class="fas fa-moon theme-toggle" id="themeToggle"></i>
+                <div class="mobile-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content fade-in">
+            <h1>Engineering Hub — Learn faster, Aim higher...</h1>
+            <p>We built Engineering Hub to make your Diploma (CTEVT) and Loksewa preparation truly practical. For CTEVT, you can quickly access program-wise Notes, Old Questions, Question Banks, and Solutions with clean previews and one-click downloads. For Loksewa, practice exam-like quizzes (random from your 100), with negative marking and ranked leaderboard. Everything is responsive, fast, and designed for real use on mobile.</p>
+            <a href="#ctevt" class="cta-button">Explore Resources</a>
+        </div>
+    </section>
+
+    <!-- CTEVT Section -->
+    <section id="ctevt" class="section">
+        <h2 class="section-title">CTEVT Resources</h2>
+        <p class="section-subtitle">All Courses, All Semesters</p>
+        
+        <div class="glass-box fade-in">
+            <img src="https://i.ibb.co/ctevt-engineering.jpg" alt="Engineering Students">
+            <h3>CTEVT Resources</h3>
+            <p>Access a comprehensive library of notes, question banks, and solutions for all engineering courses from semester 1 to 6.</p>
+            <a href="ctevt-resources.html" class="cta-button">Click Here To Download</a>
+        </div>
+    </section>
+
+    <!-- Loksewa Section -->
+    <section id="loksewa" class="section">
+        <h2 class="section-title">Loksewa Resources</h2>
+        <p class="section-subtitle">Quizzes & MCQs</p>
+        
+        <div class="glass-box fade-in">
+            <img src="https://i.ibb.co/loksewa-engineering.jpg" alt="Loksewa Exam">
+            <h3>Loksewa Resources</h3>
+            <p>Test your knowledge with our extensive collection of quizzes and MCQ sets tailored for Loksewa engineering exams.</p>
+            <a href="loksewa-quiz.html" class="cta-button">Click Here For Quiz, MCQ Sets</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">Comprehensive Educational Solutions</p>
+        
+        <div class="grid">
+            <div class="course-card fade-in">
+                <i class="fas fa-book fa-3x" style="color: var(--primary-purple); margin-bottom: 1rem;"></i>
+                <h3>Study Materials</h3>
+                <p>Comprehensive notes, question banks, and solutions for all CTEVT engineering courses</p>
+            </div>
+            <div class="course-card fade-in">
+                <i class="fas fa-laptop-code fa-3x" style="color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                <h3>Interactive Quizzes</h3>
+                <p>Practice with exam-like quizzes featuring random questions and real-time leaderboard</p>
+            </div>
+            <div class="course-card fade-in">
+                <i class="fas fa-mobile-alt fa-3x" style="color: var(--primary-light-blue); margin-bottom: 1rem;"></i>
+                <h3>Mobile Responsive</h3>
+                <p>Access all resources seamlessly on any device, anywhere, anytime</p>
+            </div>
+            <div class="course-card fade-in">
+                <i class="fas fa-chart-line fa-3x" style="color: var(--primary-purple); margin-bottom: 1rem;"></i>
+                <h3>Progress Tracking</h3>
+                <p>Monitor your performance and improvement with detailed analytics</p>
+            </div>
+            <div class="course-card fade-in">
+                <i class="fas fa-users fa-3x" style="color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                <h3>Community Support</h3>
+                <p>Connect with fellow engineering students and share knowledge</p>
+            </div>
+            <div class="course-card fade-in">
+                <i class="fas fa-clock fa-3x" style="color: var(--primary-light-blue); margin-bottom: 1rem;"></i>
+                <h3>24/7 Access</h3>
+                <p>Study at your own pace with round-the-clock access to all resources</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">Let's Build Something Great Together</h2>
+        
+        <div class="contact-form fade-in">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="https://linkedin.com/in/kishan-raut" style="margin: 0 1rem; color: var(--primary-light-blue);">
+                    <i class="fab fa-linkedin fa-2x"></i>
+                </a>
+                <a href="https://github.com/kishan-raut" style="margin: 0 1rem; color: var(--primary-light-blue);">
+                    <i class="fab fa-github fa-2x"></i>
+                </a>
+                <a href="mailto:kishan.raut@engineeringhub.com" style="margin: 0 1rem; color: var(--primary-light-blue);">
+                    <i class="fas fa-envelope fa-2x"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Author About -->
+    <section class="section" style="background: var(--bg-dark);">
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: center; max-width: 1000px; margin: 0 auto;">
+            <div style="text-align: center;">
+                <div style="width: 200px; height: 200px; border-radius: 50%; background: var(--primary-gradient); padding: 5px; margin: 0 auto;">
+                    <img src="https://i.ibb.co/author-photo.jpg" alt="Kishan Raut" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                </div>
+            </div>
+            <div>
+                <h2 class="section-title">Author About</h2>
+                <p>I am a Civil Engineering Diploma graduate from Janakalyan Secondary School, Sanfebagar, Achham, originally from Dodhara Chadani, Kanchanpur. My goal with Engineering Hub is to bridge the gap between academic learning and practical exam preparation, providing accessible, high-quality resources for both CTEVT and Loksewa students across Nepal.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#ctevt">CTEVT Section</a>
+                <a href="#loksewa">Loksewa Section</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <a href="#">CTEVT Notes</a>
+                <a href="#">Question Banks</a>
+                <a href="#">Quiz Practice</a>
+                <a href="#">Study Materials</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="https://facebook.com/cyberdavid04" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/cyber_david04" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com/cyber_david04" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://wa.me/9748240918" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Engineering Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            themeToggle.classList.toggle('fa-moon');
+            themeToggle.classList.toggle('fa-sun');
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.2s';
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.glass-box, .course-card, .contact-form').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Contact Form
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            e.target.reset();
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.width = '100%';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.background = 'rgba(0, 0, 0, 0.95)';
+            navLinks.style.padding = '2rem';
+        });
+
+        // MongoDB Connection (Placeholder - You'll need to add your actual connection details)
+        const mongoDBConnection = {
+            uri: 'mongodb+srv://<username>:<password>@cluster0.mongodb.net/engineering-hub?retryWrites=true&w=majority',
+            dbName: 'engineering-hub',
+            collections: {
+                users: 'users',
+                quizResults: 'quiz-results',
+                ctevtMaterials: 'ctevt-materials',
+                loksewaMaterials: 'loksewa-materials'
+            }
+        };
+
+        // Admin Panel Login (Default Credentials)
+        const adminCredentials = {
+            email: 'admin@engineeringhub.com',
+            password: 'admin123'
+        };
+
+        // Quiz System
+        let quizAttempts = {
+            'Civil Engineering': 2,
+            'Geomatics Engineering': 2,
+            'Computer Engineering': 2,
+            'Electrical Engineering': 2,
+            'Mechanical Engineering': 2
+        };
+
+        function startQuiz(course) {
+            if (quizAttempts[course] > 0) {
+                // Redirect to quiz page
+                window.location.href = `${course.toLowerCase().replace(' ', '-')}-quiz.html`;
+                quizAttempts[course]--;
+            } else {
+                alert('You have reached your daily limit for this quiz. Please try again tomorrow.');
+            }
+        }
+
+        // Leaderboard System
+        function updateLeaderboard(course, userData) {
+            // This would typically be handled by your backend
+            const leaderboard = JSON.parse(localStorage.getItem(`leaderboard_${course}`) || '[]');
+            leaderboard.push(userData);
+            leaderboard.sort((a, b) => b.score - a.score);
+            leaderboard.splice(10); // Keep only top 10
+            localStorage.setItem(`leaderboard_${course}`, JSON.stringify(leaderboard));
+        }
+
+        // File Download System
+        function downloadFile(fileUrl, fileName) {
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Admin Panel Functions
+        function adminLogin(email, password) {
+            if (email === adminCredentials.email && password === adminCredentials.password) {
+                localStorage.setItem('adminLoggedIn', 'true');
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                alert('Invalid credentials');
+            }
+        }
+
+        function adminLogout() {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = 'index.html';
+        }
+
+        // Material Management
+        function addCtevtMaterial(course, semester, type, title, fileUrl) {
+            const material = {
+                course,
+                semester,
+                type, // 'syllabus', 'notes', 'question-bank', 'solution'
+                title,
+                fileUrl,
+                uploadDate: new Date().toISOString()
+            };
+            // Save to MongoDB (implement with your backend)
+            console.log('Adding material:', material);
+        }
+
+        // Quiz Generation
+        function generateQuizId() {
+            const quizId = 'QUIZ_' + Math.random().toString(36).substr(2, 9).toUpperCase();
+            return quizId;
+        }
+
+        // User Registration
+        function registerUser(name, email, password, qualification, gender) {
+            const user = {
+                quizId: generateQuizId(),
+                name,
+                email,
+                password, // Should be hashed
+                qualification,
+                gender,
+                registrationDate: new Date().toISOString()
+            };
+            // Save to MongoDB (implement with your backend)
+            console.log('Registering user:', user);
+            return user.quizId;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if admin is logged in
+            if (window.location.pathname.includes('admin') && !localStorage.getItem('adminLoggedIn')) {
+                window.location.href = 'admin-login.html';
+            }
+
+            // Load leaderboard data
+            loadLeaderboardData();
+
+            // Set up quiz attempts
+            const savedAttempts = localStorage.getItem('quizAttempts');
+            if (savedAttempts) {
+                quizAttempts = JSON.parse(savedAttempts);
+            }
+        });
+
+        function loadLeaderboardData() {
+            // Load and display leaderboard data
+            const courses = ['Civil Engineering', 'Geomatics Engineering', 'Computer Engineering', 'Electrical Engineering', 'Mechanical Engineering'];
+            courses.forEach(course => {
+                const leaderboard = JSON.parse(localStorage.getItem(`leaderboard_${course}`) || '[]');
+                // Display in leaderboard section
+            });
+        }
+
+        // Save quiz attempts daily
+        setInterval(() => {
+            localStorage.setItem('quizAttempts', JSON.stringify(quizAttempts));
+        }, 60000); // Save every minute
+
+        // Reset quiz attempts daily at midnight
+        function resetDailyAttempts() {
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+            
+            const msUntilMidnight = tomorrow - now;
+            
+            setTimeout(() => {
+                quizAttempts = {
+                    'Civil Engineering': 2,
+                    'Geomatics Engineering': 2,
+                    'Computer Engineering': 2,
+                    'Electrical Engineering': 2,
+                    'Mechanical Engineering': 2
+                };
+                localStorage.setItem('quizAttempts', JSON.stringify(quizAttempts));
+                resetDailyAttempts(); // Schedule next reset
+            }, msUntilMidnight);
+        }
+
+        resetDailyAttempts();
+    </script>
+</body>
+</html>

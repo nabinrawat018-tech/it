@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semester - ITNOTES</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>ITNOTES</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="notes.html" class="nav-link">Notes</a>
+                <a href="index.html#services" class="nav-link">Services</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 id="semesterTitle">Semester</h1>
+            <p>Access all resources for this semester including syllabus, notes, question banks, and solutions.</p>
+        </div>
+    </section>
+
+    <!-- Semester Content -->
+    <section class="semester-content">
+        <div class="container">
+            <div class="subjects-grid" id="subjectsGrid">
+                <!-- Subjects will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Comprehensive Notes</h3>
+                    <p>Access detailed notes for all engineering subjects from semester 1 to 6, covering every topic with clear explanations and examples.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Question Banks</h3>
+                    <p>Extensive collection of previous year questions and practice papers to help you prepare for exams effectively.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Solutions & Explanations</h3>
+                    <p>Step-by-step solutions with detailed explanations to help you understand complex engineering concepts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="contact-title">Let's Build Something Great Together</h2>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" required>
+                        <label for="name">Your Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required>
+                        <label for="email">Email Address</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" required>
+                        <label for="subject">Subject</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <label for="message">Your Message</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+                <div class="contact-links">
+                    <a href="https://www.facebook.com/nabin.rawat.444218" class="social-link" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://www.instagram.com/netrarawat911/" class="social-link" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/9779703888510" class="social-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Author About Section -->
+    <section class="author-about">
+        <div class="container">
+            <div class="author-content">
+                <div class="author-image">
+                    <div class="author-photo-frame">
+                        <img src="https://i.ibb.co/8XqJYzK/author-photo.jpg" alt="Nabin Rawat" class="author-photo">
+                    </div>
+                </div>
+                <div class="author-bio">
+                    <h2>Author About</h2>
+                    <p>I am a Civil Engineering Diploma graduate from Janakalyan Secondary School, Sanfebagar, Achham, originally from Dodhara Chadani, Kanchanpur. My goal with ITNOTES is to bridge the gap between academic learning and practical exam preparation, providing accessible, high-quality resources for both CTEVT and Loksewa students across Nepal.</p>
+                    <p>Through this platform, I aim to make engineering education more accessible and help students excel in their academic journey with comprehensive study materials and resources.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-background">
+            <div class="wave wave1"></div>
+            <div class="wave wave2"></div>
+        </div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ITNOTES</h3>
+                    <p>Your comprehensive engineering education platform</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="notes.html">Notes</a></li>
+                        <li><a href="index.html#services">Services</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Us</h4>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/nabin.rawat.444218" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/netrarawat911/" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/9779703888510" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ITNOTES. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="script.js"></script>
+    <script src="semester.js"></script>
+</body>
+</html>

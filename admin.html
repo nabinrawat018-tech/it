@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - ITNOTES</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>Admin Login</h1>
+                <p>Enter your credentials to access the admin panel</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <input type="email" id="loginEmail" required>
+                    <label for="loginEmail">Email</label>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="loginPassword" required>
+                    <label for="loginPassword">Password</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <div class="login-footer">
+                    <p>Default credentials: admin@itnotes.com / admin123</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>ITNOTES Admin</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#images" class="nav-item" data-section="images">
+                    <i class="fas fa-images"></i>
+                    <span>Images Management</span>
+                </a>
+                <a href="#notes" class="nav-item" data-section="notes">
+                    <i class="fas fa-book"></i>
+                    <span>Notes Resources</span>
+                </a>
+                <a href="#options" class="nav-item" data-section="options">
+                    <i class="fas fa-cog"></i>
+                    <span>Notes Options</span>
+                </a>
+                <a href="#api" class="nav-item" data-section="api">
+                    <i class="fas fa-key"></i>
+                    <span>API Keys</span>
+                </a>
+                <a href="#settings" class="nav-item" data-section="settings">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn btn-secondary">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="pageTitle">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <span class="admin-user">Admin User</span>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Total Notes</h3>
+                            <p class="stat-number" id="totalNotes">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Downloads</h3>
+                            <p class="stat-number" id="totalDownloads">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Users</h3>
+                            <p class="stat-number" id="totalUsers">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>Page Views</h3>
+                            <p class="stat-number" id="pageViews">0</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Images Management Section -->
+            <section id="images" class="content-section">
+                <div class="section-header">
+                    <h2>Images Management</h2>
+                    <button class="btn btn-primary" onclick="openImageUpload()">
+                        <i class="fas fa-plus"></i> Add Image
+                    </button>
+                </div>
+                <div class="images-grid" id="imagesGrid">
+                    <!-- Images will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Notes Resources Section -->
+            <section id="notes" class="content-section">
+                <div class="section-header">
+                    <h2>Notes Resources Management</h2>
+                    <div class="header-actions">
+                        <div class="search-box">
+                            <input type="text" id="resourceSearch" placeholder="Search resources...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <button class="btn btn-secondary" onclick="exportResources()">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                        <button class="btn btn-warning" onclick="testLocalStorage()" style="margin-right: 10px;">
+                            <i class="fas fa-bug"></i> Debug
+                        </button>
+                        <button class="btn btn-info" onclick="addTestResource()" style="margin-right: 10px;">
+                            <i class="fas fa-plus"></i> Add Test
+                        </button>
+                        <button class="btn btn-primary" onclick="openResourceModal()">
+                            <i class="fas fa-plus"></i> Add Resource
+                        </button>
+                    </div>
+                </div>
+                <div class="notes-management">
+                    <div class="semester-tabs">
+                        <button class="tab-btn active" data-semester="1" onclick="changeSemester(1)">Semester 1</button>
+                        <button class="tab-btn" data-semester="2" onclick="changeSemester(2)">Semester 2</button>
+                        <button class="tab-btn" data-semester="3" onclick="changeSemester(3)">Semester 3</button>
+                        <button class="tab-btn" data-semester="4" onclick="changeSemester(4)">Semester 4</button>
+                        <button class="tab-btn" data-semester="5" onclick="changeSemester(5)">Semester 5</button>
+                        <button class="tab-btn" data-semester="6" onclick="changeSemester(6)">Semester 6</button>
+                        <button class="tab-btn" data-semester="7" onclick="changeSemester(7)">Semester 7</button>
+                        <button class="tab-btn" data-semester="8" onclick="changeSemester(8)">Semester 8</button>
+                    </div>
+                    <div class="resources-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Resources:</span>
+                            <span class="stat-value" id="totalResources">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">This Semester:</span>
+                            <span class="stat-value" id="semesterResources">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Last Updated:</span>
+                            <span class="stat-value" id="lastUpdated">Never</span>
+                        </div>
+                    </div>
+                    <div class="resources-content" id="resourcesContent">
+                        <!-- Resources will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notes Options Section -->
+            <section id="options" class="content-section">
+                <div class="section-header">
+                    <h2>Notes Options Management</h2>
+                    <button class="btn btn-primary" onclick="openOptionModal()">
+                        <i class="fas fa-plus"></i> Add Option
+                    </button>
+                </div>
+                <div class="options-list" id="optionsList">
+                    <!-- Options will be loaded here -->
+                </div>
+            </section>
+
+            <!-- API Keys Section -->
+            <section id="api" class="content-section">
+                <div class="section-header">
+                    <h2>API Keys Configuration</h2>
+                </div>
+                <div class="api-config">
+                    <div class="config-card">
+                        <h3>Email Service Configuration</h3>
+                        <form id="emailConfigForm">
+                            <div class="form-group">
+                                <label>Service Provider</label>
+                                <select id="emailProvider">
+                                    <option value="gmail">Gmail</option>
+                                    <option value="outlook">Outlook</option>
+                                    <option value="custom">Custom SMTP</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" id="emailAddress" required>
+                            </div>
+                            <div class="form-group">
+                                <label>App Password</label>
+                                <input type="password" id="emailPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Configuration</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="content-section">
+                <div class="section-header">
+                    <h2>System Settings</h2>
+                </div>
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>Change Admin Password</h3>
+                        <form id="passwordForm">
+                            <div class="form-group">
+                                <label>Current Password</label>
+                                <input type="password" id="currentPassword" required>
+                            </div>
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input type="password" id="newPassword" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input type="password" id="confirmPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Change Password</button>
+                        </form>
+                    </div>
+                    <div class="settings-card">
+                        <h3>User Management</h3>
+                        <div class="user-list" id="userList">
+                            <!-- Users will be loaded here -->
+                        </div>
+                        <button class="btn btn-secondary" onclick="openUserModal()">
+                            <i class="fas fa-plus"></i> Add User
+                        </button>
+                    </div>
+                    <div class="settings-card">
+                        <h3>Email Settings</h3>
+                        <form id="emailSettingsForm">
+                            <div class="form-group">
+                                <label>Admin Email</label>
+                                <input type="email" id="adminEmail" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Email</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="imageUploadModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Upload Image</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="imageUploadForm">
+                <div class="form-group">
+                    <label>Image File</label>
+                    <input type="file" id="imageFile" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label>Image Name</label>
+                    <input type="text" id="imageName" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="imageDescription"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Upload Image</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="resourceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Resource</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="resourceForm">
+                <div class="form-group">
+                    <label>Resource Type</label>
+                    <select id="resourceType" name="resourceType" required>
+                        <option value="syllabus">Syllabus</option>
+                        <option value="notes">Notes</option>
+                        <option value="questionBank">Question Bank</option>
+                        <option value="solutions">Solutions</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Subject</label>
+                    <input type="text" id="resourceSubject" name="resourceSubject" required placeholder="e.g., Mathematics I, Physics I">
+                </div>
+                <div class="form-group">
+                    <label>Semester</label>
+                    <select id="resourceSemester" name="resourceSemester" required>
+                        <option value="1">Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        <option value="3">Semester 3</option>
+                        <option value="4">Semester 4</option>
+                        <option value="5">Semester 5</option>
+                        <option value="6">Semester 6</option>
+                        <option value="7">Semester 7</option>
+                        <option value="8">Semester 8</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Resource Name</label>
+                    <input type="text" id="resourceName" name="resourceName" required placeholder="e.g., Calculus Basics, Previous Year Questions">
+                </div>
+                <div class="form-group">
+                    <label>File URL</label>
+                    <input type="url" id="resourceUrl" name="resourceUrl" required placeholder="https://example.com/file.pdf">
+                </div>
+                <div class="form-group">
+                    <label>Description (Optional)</label>
+                    <textarea id="resourceDescription" name="resourceDescription" placeholder="Brief description of the resource"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>File Size (Optional)</label>
+                    <input type="text" id="resourceFileSize" name="resourceFileSize" placeholder="e.g., 2.5 MB, 15 pages">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Resource</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="optionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Notes Option</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="optionForm">
+                <div class="form-group">
+                    <label>Option Name</label>
+                    <input type="text" id="optionName" required>
+                </div>
+                <div class="form-group">
+                    <label>Course</label>
+                    <select id="optionCourse" required>
+                        <option value="bsc-csit">BSC CSIT</option>
+                        <option value="civil">Civil Engineering</option>
+                        <option value="electrical">Electrical Engineering</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Semester</label>
+                    <select id="optionSemester" required>
+                        <option value="1">Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        <option value="3">Semester 3</option>
+                        <option value="4">Semester 4</option>
+                        <option value="5">Semester 5</option>
+                        <option value="6">Semester 6</option>
+                        <option value="7">Semester 7</option>
+                        <option value="8">Semester 8</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Option</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add User</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="userForm">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="userPassword" required>
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="userRole" required>
+                        <option value="admin">Admin</option>
+                        <option value="editor">Editor</option>
+                        <option value="viewer">Viewer</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Add User</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
